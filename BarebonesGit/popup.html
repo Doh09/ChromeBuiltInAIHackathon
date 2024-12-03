@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub In-Browser Git Interface</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <h2>GitHub In-Browser Git Interface</h2>
+  <p>Perform Git actions directly from your browser.</p>
+  
+  <label for="token">Personal Access Token:</label><br>
+  <input type="text" id="token" placeholder="Enter your GitHub Personal Access Token"><br><br>
+  
+  <label for="repoUrl">Repository URL:</label><br>
+  <input type="text" id="repoUrl" placeholder="Enter your GitHub repository URL"><br><br>
+  
+  <label for="branch">Branch:</label><br>
+  <input type="text" id="branch" placeholder="Enter branch name (default: main)"><br><br>
+  
+  <button id="cloneBtn">Clone Repository</button><br><br>
+  
+  <div id="loading" style="display: none;">Cloning repository...</div>
+  
+  <button id="addBtn">Add</button>
+  <button id="commitBtn">Commit</button>
+  <button id="pullBtn">Pull</button>
+  <button id="pushBtn">Push</button>
+  
+  <div id="fileStorage">
+    <p>Stored Files:</p>
+    <ul id="filesList"></ul>
+    <button id="clearFilesBtn">Clear Files</button>
+    <button id="toggleSidepanelBtn">Toggle Sidepanel</button>
+</div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

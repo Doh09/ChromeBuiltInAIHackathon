@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 300px;
+  }
+  
+  button {
+    margin: 5px;
+  }
+  
+  #fileStorage {
+    margin-top: 20px;
+  }
+  
+  #filesList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #filesList li {
+    margin: 5px 0;
+  }
+
+  #loading {
+    margin-top: 20px;
+    font-style: italic;
+  }

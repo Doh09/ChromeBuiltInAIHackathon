@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script defer src="popup.js"></script>
+  <style>
+    body {
+      min-width: 300px;
+      min-height: 800px;
+      padding: 10px;
+      background-color: #ffffff;
+    }
+    .file-list {
+      width: 100%;
+      max-height: 350px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      background-color: #ffffff;
+    }
+    .file-item {
+      padding: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+    .file-item:hover {
+      background-color: #f5f5f5;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <title>Offscreen Document</title>
+</head>
+<body>
+    <div>
+      <button id="selectFolder">Select Folder</button>
+      <button id="clearFolder">Clear</button>
+      <button id="uploadButton">Upload to GitHub</button>
+    </div>
+    <div id="fileList" class="file-list"></div>
+    <textarea id="fileContent" rows="20" cols="50"></textarea>
+    <button id="saveButton">Save</button>
+    <label>
+      <input type="checkbox" id="autosaveCheckbox">
+      Enable Autosave
+    </label>
+    <select id="repoSelect" style="display: none;"></select>
+    <div id="uploadStatus"></div>
+    <!-- <script src="popup.js"></script> -->
+  </body>
+</html>

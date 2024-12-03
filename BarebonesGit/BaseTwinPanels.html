@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Viewer and Editor</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #navigation {
+            height: 5vh;
+            background-color: #f8f9fa;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+        #main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        #left-panel, #right-panel {
+            width: 50%;
+            height: 100%;
+            overflow-y: auto;
+            border: none;
+        }
+        #left-panel {
+            border-right: 2px solid #ccc;
+        }
+        textarea {
+            width: 100%;
+            height: 100%;
+            font-family: monospace;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #loadFile, #saveFile {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="navigation">
+            Navigation Bar
+            <button id="loadFile">Load File</button>
+            <button id="saveFile">Save As</button>
+        </div>
+        <div id="main-content">
+            <div id="left-panel">
+                <iframe id="view" srcdoc=""></iframe>
+            </div>
+            <div id="right-panel">
+                <textarea id="editor"></textarea>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentFileName = 'unnamed.html'; // Default file name
+
+        // Function to handle file loading using File System Access API
+        async function loadFile() {
+            try {
+                const [fileHandle] = await window.showOpenFilePicker();
+                const file = await fileHandle.getFile();
+                const content = await file.text();
+                document.getElementById('editor').value = content;
+                document.getElementById('view').srcdoc = content;
+                currentFileName = file.name; // Update the current file name when a file is loaded
+            } catch (err) {
+                console.error('Error loading file:', err);
+            }
+        }
+
+        // Function to handle file saving using File System Access API
+        async function saveFile() {
+            const content = document.getElementById('editor').value;
+            try {
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: currentFileName, // Use the current file name as the suggested name
+                    types: [{
+                        description: 'HTML Files',
+                        accept: {
+                            'text/html': ['.html', '.htm'],
+                        },
+                    }],
+                });
+                const writable = await handle.createWritable();
+                await writable.write(content);
+                await writable.close();
+                console.log('File saved successfully');
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error('An error occurred while saving the file:', err);
+                }
+            }
+        }
+
+        // Event listeners
+        document.getElementById('loadFile').addEventListener('click', loadFile);
+        document.getElementById('saveFile').addEventListener('click', saveFile);
+
+        // Existing event listener for input in textarea (editor)
+        document.getElementById('editor').addEventListener('input', function() {
+            document.getElementById('view').srcdoc = this.value;
+        });
+    </script>
+</body>
+</html>

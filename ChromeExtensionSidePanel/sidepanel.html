@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Sidepanel</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .section {
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow: hidden; /* Changed from auto to hidden */
+            display: flex; /* Changed to flex to control child elements */
+            flex-direction: column;
+        }
+        .section.small {
+            flex: 0 0 20%; /* Fixed height of 20% */
+        }
+        .section.medium {
+            flex: 0 0 30%; /* Fixed height of 20% */
+        }
+        .section.large {
+            flex: 0 0 50%; /* Fixed height of 60% */
+        }
+        textarea {
+            flex: 1; /* Allows textarea to grow within its parent */
+            width: 100%;
+            font-family: monospace;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Ensures scrollbar inside textarea */
+            resize: none; /* Disables resizing */
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .header-container h4 {
+            margin: 0;
+        }
+        .header-container button,
+        .header-container select {
+            height: fit-content;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body >
+    <div class="container">
+        <div class="section small">
+            <div>
+                <div class="header-container">
+                    <h4>Cloud Section</h4>
+                    <button id="applyChanges">Apply Changes</button>
+                    <button id="openFile">Open BaseTwinPanels</button>
+                    <select id="llmSelector">
+                        <option value="geminiNano">Built-in Gemini Nano</option>
+                        <option value="http">HTTP LLM</option>
+                    </select>
+                </div>
+                
+                <input type="url" id="urlInput" class="hidden" placeholder="Enter URL" required>
+                
+                <select id="httpMethod" class="hidden">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
+                
+                <div id="headers" class="hidden">
+                    <label for="headerInput">Headers</label>
+                    <textarea id="headerInput" placeholder="Enter headers in 'Key: Value' format, one per line">
+        Content-Type: application/json
+        Authorization: Bearer xai-placeholder</textarea>
+                </div>
+                
+                <div id="jsonBody" class="hidden jsonBody">
+                    <textarea id="jsonInput" placeholder="Enter JSON body for POST">{}</textarea>
+                </div>
+            </div>
+            <textarea id="changeRequest" placeholder="Enter your change request here"></textarea>
+        </div>
+        <div class="section large"><h4>File Section</h4>
+            <textarea id="fileContent">This is the file.</textarea>
+        </div>     
+        <div class="section medium"><h4>Folder Section</h4>
+            <div>
+                <button id="selectFolder">Select Folder</button>
+                <input type="token" id="tokeninput" placeholder="Enter token" required>
+                <button id="connectbtn">Connect to Github</button>
+
+                <!-- <button id="clearFolder">Clear</button> -->
+                <!-- <button id="uploadButton">Upload to GitHub</button> -->
+              </div>
+              <div id="fileList" class="file-list"></div>
+              <textarea id="folderContent" rows="20" cols="50"></textarea>
+              <button id="saveButton">Save</button>
+              <label>
+                <input type="checkbox" id="autosaveCheckbox">
+                Enable Autosave
+              </label>
+              <select id="repoSelect" style="display: none;"></select>
+              <div id="uploadStatus"></div>
+        </div>
+    </div>
+    <script src="sidepanel.js"></script>
+</body>
+</html>
